@@ -1,16 +1,17 @@
 body {
-    background: #f4f4f4;
+    background: linear-gradient(135deg, #f5edfb 0%, #ede0fa 100%);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
 }
 
 .container {
     max-width: 400px;
     margin: 40px auto;
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(155, 89, 182, 0.15);
     padding: 24px 32px 32px 32px;
 }
 
@@ -22,8 +23,8 @@ header {
 }
 
 header h1 {
-    color: #6a2c91;
-    /* Accenture purple */
+    color: #9b59b6;
+    /* Light purple */
     text-align: center;
     margin: 0;
     flex: 1;
@@ -32,7 +33,7 @@ header h1 {
 /* Login form styles */
 .form-title {
     text-align: center;
-    color: #6a2c91;
+    color: #9b59b6;
     margin-bottom: 24px;
 }
 
@@ -59,7 +60,7 @@ header h1 {
 
 .form-group input:focus {
     outline: none;
-    border-color: #6a2c91;
+    border-color: #9b59b6;
 }
 
 .form-group input.input-error {
@@ -75,7 +76,7 @@ header h1 {
 
 #login-btn {
     width: 100%;
-    background: #6a2c91;
+    background: #9b59b6;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -87,14 +88,14 @@ header h1 {
 }
 
 #login-btn:hover {
-    background: #51247a;
+    background: #8e44ad;
 }
 
 /* Logout button */
 #logout-btn {
     background: transparent;
-    color: #6a2c91;
-    border: 1px solid #6a2c91;
+    color: #9b59b6;
+    border: 1px solid #9b59b6;
     border-radius: 4px;
     padding: 6px 14px;
     font-size: 14px;
@@ -103,7 +104,7 @@ header h1 {
 }
 
 #logout-btn:hover {
-    background: #6a2c91;
+    background: #9b59b6;
     color: #fff;
 }
 
@@ -122,7 +123,7 @@ header h1 {
 }
 
 #add-btn {
-    background: #6a2c91;
+    background: #9b59b6;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -133,7 +134,7 @@ header h1 {
 }
 
 #add-btn:hover {
-    background: #51247a;
+    background: #8e44ad;
 }
 
 #todo-list {
