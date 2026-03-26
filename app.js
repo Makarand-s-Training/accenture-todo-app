@@ -1,5 +1,102 @@
 // accenture-todo-app JavaScript
 
+// --- Login Form ---
+
+const loginContainer = document.getElementById('login-container');
+const todoContainer = document.getElementById('todo-container');
+const loginForm = document.getElementById('login-form');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const emailError = document.getElementById('email-error');
+const passwordError = document.getElementById('password-error');
+const logoutBtn = document.getElementById('logout-btn');
+
+// Email format validation
+const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+// Validate a single field; returns true if valid
+const validateEmail = () => {
+    const value = emailInput.value.trim();
+    if (!value) {
+        emailError.textContent = 'Email is required.';
+        emailInput.classList.add('input-error');
+        return false;
+    }
+    if (!isValidEmail(value)) {
+        emailError.textContent = 'Please enter a valid email address.';
+        emailInput.classList.add('input-error');
+        return false;
+    }
+    emailError.textContent = '';
+    emailInput.classList.remove('input-error');
+    return true;
+};
+
+const validatePassword = () => {
+    const value = passwordInput.value.trim();
+    if (!value) {
+        passwordError.textContent = 'Password is required.';
+        passwordInput.classList.add('input-error');
+        return false;
+    }
+    if (value.length < 6) {
+        passwordError.textContent = 'Password must be at least 6 characters.';
+        passwordInput.classList.add('input-error');
+        return false;
+    }
+    passwordError.textContent = '';
+    passwordInput.classList.remove('input-error');
+    return true;
+};
+
+// Show/hide sections
+const showTodoApp = () => {
+    loginContainer.style.display = 'none';
+    todoContainer.style.display = '';
+    loadTodos();
+    renderTodos();
+};
+
+const showLoginForm = () => {
+    todoContainer.style.display = 'none';
+    loginContainer.style.display = '';
+    loginForm.reset();
+    emailError.textContent = '';
+    passwordError.textContent = '';
+    emailInput.classList.remove('input-error');
+    passwordInput.classList.remove('input-error');
+};
+
+// Inline validation on blur
+emailInput.addEventListener('blur', validateEmail);
+passwordInput.addEventListener('blur', validatePassword);
+
+// Clear error on input
+emailInput.addEventListener('input', () => {
+    if (emailInput.classList.contains('input-error')) validateEmail();
+});
+passwordInput.addEventListener('input', () => {
+    if (passwordInput.classList.contains('input-error')) validatePassword();
+});
+
+// Login form submission
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const emailOk = validateEmail();
+    const passOk = validatePassword();
+    if (emailOk && passOk) {
+        sessionStorage.setItem('loggedIn', 'true');
+        showTodoApp();
+    }
+});
+
+// Logout
+logoutBtn.addEventListener('click', () => {
+    sessionStorage.removeItem('loggedIn');
+    showLoginForm();
+});
+
+// --- Todo App ---
 
 const todoInput = document.getElementById('new-todo');
 const addBtn = document.getElementById('add-btn');
@@ -92,6 +189,9 @@ todoInput.addEventListener('keydown', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadTodos();
-    renderTodos();
+    if (sessionStorage.getItem('loggedIn') === 'true') {
+        showTodoApp();
+    }
+    // Login form is shown by default (no else needed as it's visible in HTML)
 });
+
