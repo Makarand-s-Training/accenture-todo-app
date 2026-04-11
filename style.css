@@ -29,6 +29,84 @@ header h1 {
     flex: 1;
 }
 
+/* Login form */
+.login-title {
+    text-align: center;
+    color: #6a2c91;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #555;
+    font-weight: 600;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #6a2c91;
+    box-shadow: 0 0 0 2px rgba(106, 44, 145, 0.15);
+}
+
+#login-btn {
+    width: 100%;
+    background: #6a2c91;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 11px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 4px;
+}
+
+#login-btn:hover {
+    background: #52206f;
+}
+
+.login-error {
+    background: #fdecea;
+    color: #c0392b;
+    border: 1px solid #f5c6c2;
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Logout button */
+.logout-btn {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 7px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-left: 12px;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+}
+
 /* Todo input */
 .todo-input {
     display: flex;

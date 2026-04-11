@@ -1,5 +1,74 @@
 // accenture-todo-app JavaScript
 
+// --- Auth ---
+
+// Demo credentials for local use only (username: admin, password: admin123)
+const DEMO_USERS = [
+    { username: 'admin', password: 'admin123' }
+];
+
+const SESSION_EXPIRY_MS = 8 * 60 * 60 * 1000; // 8 hours
+
+const SESSION_KEY = 'auth_user';
+
+const loginContainer = document.getElementById('login-container');
+const todoContainer = document.getElementById('todo-container');
+const loginForm = document.getElementById('login-form');
+const loginError = document.getElementById('login-error');
+const logoutBtn = document.getElementById('logout-btn');
+
+// Check if user is already logged in and session is not expired
+const getSession = () => {
+    const sessionStr = localStorage.getItem(SESSION_KEY);
+    if (!sessionStr) return null;
+    try {
+        const session = JSON.parse(sessionStr);
+        if (Date.now() - session.loginTime > SESSION_EXPIRY_MS) {
+            localStorage.removeItem(SESSION_KEY);
+            return null;
+        }
+        return session.username;
+    } catch {
+        localStorage.removeItem(SESSION_KEY);
+        return null;
+    }
+};
+
+const showLogin = () => {
+    loginContainer.style.display = '';
+    todoContainer.style.display = 'none';
+    loginError.style.display = 'none';
+    loginForm.reset();
+};
+
+const showTodo = () => {
+    loginContainer.style.display = 'none';
+    todoContainer.style.display = '';
+    loadTodos();
+    renderTodos();
+};
+
+// Login form submit
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+    const match = DEMO_USERS.find(u => u.username === username && u.password === password);
+    if (match) {
+        localStorage.setItem(SESSION_KEY, JSON.stringify({ username, loginTime: Date.now() }));
+        loginError.style.display = 'none';
+        showTodo();
+    } else {
+        loginError.style.display = '';
+    }
+});
+
+// Logout button
+logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem(SESSION_KEY);
+    showLogin();
+});
+
 // --- Todo App ---
 
 const todoInput = document.getElementById('new-todo');
@@ -93,7 +162,10 @@ todoInput.addEventListener('keydown', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadTodos();
-    renderTodos();
+    if (getSession()) {
+        showTodo();
+    } else {
+        showLogin();
+    }
 });
 
